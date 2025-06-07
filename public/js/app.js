@@ -10,9 +10,36 @@ function setIconApp (companyIcon) {
     if (!existingIcon) document.head.appendChild(linkElement);
 }
 
-let companyName = 'Rapidin';    //Esto se cambiara a un JSON
+let companyName = 'Tacos sabedra';    //Esto se cambiara a un JSON
 let companyIcon = './assets/rapidin.png';
 
 setTitleApp(companyName);
 setIconApp(companyIcon);
+
+//Prueba platillos
+const saucers = [
+    { id: 1, name: 'Rollo Primavera', price: 50, description:''},
+    { id: 2, name: 'Arroz', price: 50, description:''},
+    { id: 3, name: 'Pollo agridulce', price: 50, description:''},
+    { id: 4, name: 'Agua del dia', price: 50, description:''},
+    { id: 5, name: 'Refresco', price: 50, description:''}
+]
+
+/* document.querySelector('.btn--txt').textContent = saucers[0].name; */
+function genarateSelectableSaucers(saucers, containerId) {
+    const getContainer = document.getElementById(containerId);
+    const getTemplate = getContainer.querySelector('template');
+    saucers.forEach(saucer => {
+        const cloneTemplate = getTemplate.content.cloneNode(true);
+        const getButton = cloneTemplate.querySelector('button');
+        const getText = cloneTemplate.querySelector('.btn--txt');
+        getButton.setAttribute('saucer-id', saucer.id);
+        getText.textContent = saucer.name;
+        getContainer.appendChild(cloneTemplate);
+    });
+}
+
+genarateSelectableSaucers(saucers,'food-items');
+
+
 
