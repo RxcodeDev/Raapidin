@@ -26,7 +26,7 @@ const saucers = [
 ]
 
 /* document.querySelector('.btn--txt').textContent = saucers[0].name; */
-function genarateSelectableSaucers(saucers, containerId) {
+function generateSelectableSaucers(saucers, containerId) {
     const getContainer = document.getElementById(containerId);
     const getTemplate = getContainer.querySelector('template');
     saucers.forEach(saucer => {
@@ -39,7 +39,7 @@ function genarateSelectableSaucers(saucers, containerId) {
     });
 }
 
-genarateSelectableSaucers(saucers,'food-items');
+generateSelectableSaucers(saucers,'food-items');
 
 
 
