@@ -19,7 +19,7 @@
   --details-back_raapidin: #ccccccbe;
   --acent-rgba_raapidin: rgba(0, 0, 0, 0.87);
   --box-shadow-dark-raapidin: 0 0 10px rgba(7, 7, 7, 0.644);
-  --box-shadow-light-raapidin: 0 0 10px rgba(238, 236, 236, 0.664);;
+  --box-shadow-light-raapidin: 0 0 10px rgba(238, 236, 236, 0.664);
   --font_raapidin: 'Poppins', sans-serif;
 }
 .app{

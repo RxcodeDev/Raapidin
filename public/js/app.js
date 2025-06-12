@@ -10,8 +10,8 @@ function setIconApp (companyIcon) {
     if (!existingIcon) document.head.appendChild(linkElement);
 }
 
-let companyName = 'Tacos sabedra';    //Esto se cambiara a un JSON
-let companyIcon = './assets/rapidin.png';
+let companyName = 'La nona';    //Esto se cambiara a un JSON
+let companyIcon = './assets/dev.png';
 
 setTitleApp(companyName);
 setIconApp(companyIcon);
@@ -26,7 +26,7 @@ const saucers = [
 ]
 
 /* document.querySelector('.btn--txt').textContent = saucers[0].name; */
-function generateSelectableSaucers(saucers, containerId) {
+function genarateSelectableSaucers(saucers, containerId) {
     const getContainer = document.getElementById(containerId);
     const getTemplate = getContainer.querySelector('template');
     saucers.forEach(saucer => {
@@ -39,7 +39,8 @@ function generateSelectableSaucers(saucers, containerId) {
     });
 }
 
-generateSelectableSaucers(saucers,'food-items');
+genarateSelectableSaucers(saucers,'food-items');
+genarateSelectableSaucers(saucers,'food-items');
 
 
 

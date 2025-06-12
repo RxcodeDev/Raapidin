@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pheonix Error</title>
+    {{style}}
+    <link rel="icon" href="{{favicon}}" type="image/png">
+</head>
+<body class="exeptions__container">
+    <header class="title_pheonix">
+        <h1>Depurador de exepciones</h1>
+        {{icon}}
+    </header>
+    <div class="terminal">
+        <div class="header">
+            <span>{{message}}</span>
+            <div class="tools">
+                <figure class="circle_header red--circle"></figure>                                    
+                <figure class="circle_header yellow--circle"></figure>
+                <figure class="circle_header green--circle"></figure>
+            </div>            
+        </div>
+        <div class="content-logs">
+            <p>{{trace}}</p>
+        </div>
+    </div>
+</body>
+</html>
