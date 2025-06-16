@@ -1,0 +1,60 @@
+function setInputErrorStyles(el, isError) {
+    const danger = getComputedStyle(document.documentElement).getPropertyValue('--status-danger');
+    if (isError) {
+        el.style.borderColor = danger;
+        el.style.outline = danger;
+        el.style.color = danger;
+        el.style.caretColor = danger;
+    } else {
+        el.style.borderColor = '';
+        el.style.outline = '';
+        el.style.color = '';
+        el.style.caretColor = '';
+    }
+}
+
+function validateField(el) {
+    // Solo muestra error si el campo está vacío o es inválido y ya fue "tocado" (blur o submit)
+    if (!el.value && el.required) {
+        setInputErrorStyles(el, true);
+    } else if (el.value && !el.checkValidity()) {
+        setInputErrorStyles(el, true);
+    } else {
+        setInputErrorStyles(el, false);
+    }
+}
+
+function setupInputValidation(selector = 'input, select') {
+    const fields = document.querySelectorAll(selector);
+
+    fields.forEach(el => {
+        // Al hacer focus, limpia el error visual y permite el focus normal
+        el.addEventListener('focus', () => {
+            setInputErrorStyles(el, false);
+        });
+
+        // Al salir del campo, valida
+        el.addEventListener('blur', () => {
+            validateField(el);
+        });
+    });
+
+    // Al enviar el formulario, valida todos los campos
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            let hasError = false;
+            fields.forEach(el => {
+                validateField(el);
+                if (!el.checkValidity()) {
+                    hasError = true;
+                }
+            });
+            // Si quieres evitar el envío si hay errores, descomenta:
+            // if (hasError) e.preventDefault();
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupInputValidation();
+});

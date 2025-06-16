@@ -1,0 +1,85 @@
+input,select{
+    border: var(--form-element-border-size) var(--input-border-style) var(--form-element-border-color); /* Esto sera dinamico */
+    border-radius: 5px;
+    background-color: transparent;  
+    color: var(--form-element-text-color);
+    padding: 2px;    
+}
+
+input::placeholder {
+  color: var(--placesholder-text-color);  
+}
+
+input:focus,select:focus{
+    outline-color: var(--focus-outline);
+    color:  var(--focus-text-color);
+    caret-color: var(--focus-caret);    
+}
+
+select:focus{
+    border-color: var(--focus-border-form-element) ;
+}
+
+input:focus::placeholder {
+    color: var(--focus-placeholder);
+}
+
+select,::picker(select){
+    appearance: base-select;
+    margin: 0;
+    padding: 0;
+}
+
+select selectedcontent{        
+    margin: 0;
+    padding-left: 8px;
+    color: var(--form-element-text-color);    
+}
+
+select:hover{
+    cursor: pointer;
+}
+
+::picker(select){
+    background-color: transparent;
+    color: var(--form-element-text-color);    
+    box-shadow: 0 0 2px var(--form-element-hover);    
+    overflow-x: hidden;
+    border: none;
+}
+
+select::picker-icon{
+    color: var(--picker-form-element);
+    transition: 0.4s transform;    
+}
+
+select:open{
+    color: var(--focus-picker-form-element);
+    border-color: var(--focus-picker-form-element);    
+}
+
+select:open::picker-icon{
+    color: var(--focus-picker-form-element);
+    transform: rotate(180deg);
+}
+
+
+select option:hover{
+    background-color: var(--form-element-hover);
+    color: var(--statys-void);
+}
+
+select option:checked{
+    background-color: var(--form-element-hover);
+    color: var(--statys-void);
+}
+
+select option::checkmark{    
+    color: var(--statys-void);
+    order: 1;
+    content: '✔';
+    position: absolute;
+    right: 0;    
+}
+
+

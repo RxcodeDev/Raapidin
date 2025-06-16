@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Visual de Validación</title>
+  <style>
+    :root {
+      --status-danger: #ff0000;
+      --status-success: #00ff00;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input, select {
+      padding: 5px;
+      border: 2px solid var(--status-success);
+      outline: none;
+      width: 300px;
+      font-size: 16px;
+    }
+
+    #log {
+      margin-top: 30px;
+      background: #222;
+      color: #0f0;
+      padding: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test Visual de Validación</h1>
+
+  <div class="input-group">
+    <label>Email requerido:</label><br>
+    <input type="email" required placeholder="ejemplo@dominio.com" id="email1">
+  </div>
+
+  <div class="input-group">
+    <label>Email opcional:</label><br>
+    <input type="email" placeholder="opcional@dominio.com" id="email2">
+  </div>
+
+  <div class="input-group">
+    <label>Número requerido:</label><br>
+    <input type="number" required min="1" placeholder=">=1" id="number1">
+  </div>
+
+  <div class="input-group">
+    <label>Opción requerida:</label><br>
+    <select required id="select1">
+      <option value="">Seleccione una opción</option>
+      <option value="a">Opción A</option>
+      <option value="b">Opción B</option>
+    </select>
+  </div>
+
+  <button onclick="runTests()">Ejecutar pruebas automáticas</button>
+
+  <h2>Consola</h2>
+  <div id="log"></div>
+
+  <script>
+    const getStyleColor = (name) => {
+      const temp = getComputedStyle(document.documentElement);
+      return temp.getPropertyValue(name).trim();
+    };
+
+    const colorMap = {
+      danger: getStyleColor('--status-danger'),
+      success: getStyleColor('--status-success')
+    };
+
+    const styleProps = ['borderColor', 'outlineColor', 'color', 'caretColor'];
+
+    const applyInputStyles = (el, status) => {
+      const color = colorMap[status] || '';
+      styleProps.forEach(prop => el.style[prop] = color);
+    };
+
+    const getValidationStatus = (el) => {
+      if (!el) return '';
+      if (el.required && !el.value) return 'danger';
+      if (el.value && !el.checkValidity()) return 'danger';
+      if (el.value && el.checkValidity()) return 'success';
+      return '';
+    };
+
+    const validateAndStyle = (el) => {
+      const status = getValidationStatus(el);
+      applyInputStyles(el, status);
+    };
+
+    const log = (msg) => {
+      const logEl = document.getElementById('log');
+      logEl.textContent += msg + '\n';
+    };
+
+    // Eventos en tiempo real
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', () => validateAndStyle(el));
+      el.addEventListener('change', () => validateAndStyle(el));
+      el.addEventListener('blur', () => validateAndStyle(el));
+    });
+
+    function runTests() {
+      const logVal = (desc, result) => {
+        log(`${desc}: ${result ? '✅' : '❌'}`);
+      };
+
+      const testInput = document.createElement('input');
+      testInput.required = true;
+      testInput.value = '';
+      logVal('Test 1 (vacío requerido)', getValidationStatus(testInput) === 'danger');
+
+      const emailBad = document.createElement('input');
+      emailBad.required = true;
+      emailBad.type = 'email';
+      emailBad.value = 'no-valido';
+      logVal('Test 2 (email inválido)', getValidationStatus(emailBad) === 'danger');
+
+      const emailGood = document.createElement('input');
+      emailGood.required = true;
+      emailGood.type = 'email';
+      emailGood.value = 'si@valido.com';
+      logVal('Test 3 (email válido)', getValidationStatus(emailGood) === 'success');
+
+      const optional = document.createElement('input');
+      optional.required = false;
+      optional.value = '';
+      logVal('Test 4 (opcional vacío)', getValidationStatus(optional) === '');
+
+      const inputStyle = document.createElement('input');
+      applyInputStyles(inputStyle, 'danger');
+      logVal('Test 5 (aplica color rojo)', inputStyle.style.borderColor !== '');
+
+      const inputVal = document.createElement('input');
+      inputVal.required = true;
+      inputVal.value = '';
+      validateAndStyle(inputVal);
+      logVal('Test 6 (valida y aplica)', inputVal.style.borderColor !== '');
+    }
+  </script>
+</body>
+</html>
