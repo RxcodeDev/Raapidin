@@ -80,9 +80,7 @@ function initFormValidation(root = document) {
   });
 }
 
-/**
- * Verifica si un elemento puede validarse
- */
+
 const isValidatable = el =>
   el instanceof HTMLElement &&
   ['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName) &&

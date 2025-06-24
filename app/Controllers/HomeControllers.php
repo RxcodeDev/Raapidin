@@ -1,9 +1,12 @@
 <?php
 namespace App\Controllers;
+use App\Core\Connection;
 
 class HomeControllers {
     public function index() {
-        return "Bienvenido a la página principal.";
+        $db = Connection::getInstance();
+        return "Este es un controlador base";
+
     }
 
     public function saludar() {

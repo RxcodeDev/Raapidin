@@ -3,15 +3,17 @@
 namespace App\ExceptionsPheonix;
 use Throwable;
 class AutoloadException extends \Exception {}
+class ConnectionException extends \Exception {}
 
 class Exceptions
 {
     public static function handleException(Throwable $e): void
     {
-        http_response_code(500);
-
+        http_response_code(500);        
         if ($e instanceof AutoloadException) {
             error_log("[AutoloadException] {$e->getMessage()}");
+        } elseif ($e instanceof ConnectionException) {
+            error_log("[ConnectionException] {$e->getMessage()}");
         } else {
             error_log("[Exception] {$e->getMessage()}");
         }
