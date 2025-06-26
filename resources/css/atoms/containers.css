@@ -98,17 +98,13 @@
   align-items: center;
   justify-content: center;
   width: fit-content;
-  padding: .2em;
-  background-color: transparent;
-  border: 1px solid var(--details-back); /* Este probablemente cambiara */
+  padding: 2px;
+  background-color: var(--menu-back);
+  border: var(--form-element-border-size) var(--input-border-style) var(--form-element-border-color);
   border-radius: 2px;
   gap: .2rem;
 }
-.form-cb:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  transition: all .2s ease-in-out;
-}
+
 .btn--icon{
   
 }

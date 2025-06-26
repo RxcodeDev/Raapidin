@@ -2,7 +2,11 @@
 @import url('./base/clientUxUi.css');
 @import url('./atoms/inputs.css');
 @import url('./atoms/containers.css');
-
+@import url('./pages/supplies.css');
+@import url('./templates/tables.css');
+@view-transition{
+  navigation: auto;
+}
 :root{
   --background-app: var(--back_raapidin);
   --menu-back: var(--menu-back_raapidin);
@@ -18,7 +22,8 @@
     --status-danger:  #ea5455;   
     --status-offline: #9e9e9e;   
     --status-sent:    #00cfe8;
-    --statys-void: #f9f9f9;
+    --status-void: #f9f9f9;
+    --status-init: #000000B7;
     
     --hover-app-color: var(--status-sent);
     --focus-outline: var(--status-sent);
@@ -37,6 +42,6 @@
     --input-border-style: var(--input-borderStyle-default);
     --picker-form-element: var(var(--status-offline));
 
-    --input-borderSize-default: 2px;
+    --input-borderSize-default: 1.5px;
     --input-borderStyle-default: solid;
 }

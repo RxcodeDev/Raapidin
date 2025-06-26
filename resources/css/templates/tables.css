@@ -1,0 +1,29 @@
+:root{
+    --table-border-color: var(--table-inactive-color);
+    --table-body-color: var(--table-inactive-color);
+    --table-text-header-color: var(--table-active-color);
+    --table-text-body-color: var(--table-inactive-color);
+    /* Modificar los nombres que alberga el border */
+    --table-inactive-color: #9e9e9e;
+    --table-active-color: #000000ec;
+}
+
+table {
+    width: 100%;    
+    color: var(--table-color);
+    font-size: .9rem;
+    overflow: hidden;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background-color: var(--menu-back);
+}
+
+th, td {
+    border: var(--form-element-border-size) var(--input-border-style) var(--table-border-color);
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--table-text-header-color);
+}
+

@@ -1,41 +1,11 @@
 
-:root{
-    /* Eventos visuales */
-    --status-success: #28c76f;  
-    --status-warning: #ff9f43;   
-    --status-danger:  #ea5455;   
-    --status-offline: #9e9e9e;   
-    --status-sent:    #00cfe8;
-    --statys-void: #f9f9f9;
-    
-    --hover-app-color: var(--status-sent);
-
-    --focus-outline: var(--status-sent);
-    --focus-text-color: var(--status-sent);
-    --focus-caret: var(--status-sent);
-    --focus-placeholder: var(--status-sent);
-    --focus-picker-form-element: var(--status-sent);
-    --focus-border-form-element: var(--status-sent);
-    
-    /* Atributos visuales por defecto */
-    --form-element-text-color: var(--status-offline);
-    --input-placeholder-text-color: var(--status-offline); 
-    --form-element-border-color: var(--status-offline);
-    --form-element-border-size: var(--input-borderSize-default);
-    --form-element-hover: var(--hover-app-color);
-    --input-border-style: var(--input-borderStyle-default);
-    --picker-form-element: var(var(--status-offline));
-
-    --input-borderSize-default: 2px;
-    --input-borderStyle-default: solid;    
-}   
-
-input,select{
+input,select,button{
     border: var(--form-element-border-size) var(--input-border-style) var(--form-element-border-color); /* Esto sera dinamico */
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: transparent;  
     color: var(--form-element-text-color);
-    padding: 2px;    
+    padding: 2px;
+    background-color: var(--menu-back);
 }
 
 input:valid,select:valid {
@@ -69,14 +39,13 @@ input:focus::placeholder {
 
 select,::picker(select){
     appearance: base-select;
-    margin: 0;
-    padding: 0;
+    font-size: 13.5px;
 }
 
 select selectedcontent{        
     margin: 0;
     padding-left: 8px;
-    color: var(--form-element-text-color);    
+    color: var(--form-element-text-color);
 }
 
 select:hover{
@@ -84,11 +53,12 @@ select:hover{
 }
 
 ::picker(select){
-    background-color: transparent;
-    color: var(--form-element-text-color);    
+    background-color: var(--menu-back);
+    color: var(--status-init);    
     box-shadow: 0 0 2px var(--form-element-hover);    
     overflow-x: hidden;
     border: none;
+    
 }
 
 select::picker-icon{
@@ -126,6 +96,52 @@ select option::checkmark{
     content: '✔';
     position: absolute;
     right: 0;    
+}
+button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover{
+    cursor: pointer;
+    color: var(--status-sent);
+    border: var(--form-element-border-size) var(--input-border-style) var(--status-sent);
+    transform: scale(1.05);
+    transition: 0.2s ease-in-out;
+}
+
+label{
+    color: var(--form-element-text-color);
+    font-size: 13.5px;
+}
+/* checkbox */
+input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    appearance: none;
+    border: 1px solid var(--form-element-border-color);
+    border-radius: 3px;
+    background-color: var(--menu-back);
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--status-warning);
+    border-color: var(--status-warning);
+    padding: 0;
+    margin: 0;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '✔';
+    color: var(--status-void);
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
 }
 
 .input--error {}

@@ -4,7 +4,7 @@ export const routes ={
     orders:     '/resources/views/pages/orders.html',
     inventory:   '/resources/views/pages/inventory.html',
     saucers:   '/resources/views/pages/saucers.html',
-    supllies:  '/resources/views/pages/supplies.html',
+    supplies:  '/resources/views/pages/supplies.html',
     reports:    '/resources/views/pages/reports.html',
     customers:  '/resources/views/pages/customers.html',
     settings:   '/resources/views/pages/settings.html',

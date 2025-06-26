@@ -1,0 +1,27 @@
+.supplies__container {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem; 
+}
+
+.supplies__view{    
+    display: flex;
+    flex-direction: column;    
+    border-radius: 5px;
+    gap: 1rem;
+}
+
+.supplies__options{
+    background-color: #ebebeb88;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: .5rem;
+    border-radius: 2px;
+}
+
+.supplies__options form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
