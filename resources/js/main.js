@@ -6,15 +6,24 @@ import { Supplies } from "./pages/Supplies.js";
 export const main = {
     init() {
         const router = new HashRouter(routes);
-        const validateInputs = new ValidateInputs(document);        
+        new ValidateInputs(document);
         router.load();
-        this.initPageScripts();
+        this.initPageSpecificModules();
     },
-    initPageScripts() {
-        setTimeout(() => {
-            if (document.querySelector('.supplies__container')) {
-                const supplies = new Supplies();
-            }
-        }, 100);
+
+    initPageSpecificModules() {
+        this.checkAndInitModules();
+        const observer = new MutationObserver(() => {
+            this.checkAndInitModules();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    },
+
+    checkAndInitModules() {
+        const suppliesContainer = document.querySelector('.supplies__container');
+        if (suppliesContainer && !suppliesContainer.dataset.initialized) {
+            new Supplies();
+            suppliesContainer.dataset.initialized = 'true';
+        }
     }
-}
+};

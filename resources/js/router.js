@@ -20,13 +20,7 @@ export class HashRouter{
         if (!url) return console.error(`Ruta no encontrada: ${page}`);
 
         try {
-            // Construir la URL correcta basándose en la ubicación actual
-            const basePath = window.location.pathname.includes('/public/') 
-                ? window.location.pathname.replace('/public/index.html', '') 
-                : '';
-            const fullUrl = basePath + url;
-            
-            const res = await fetch(fullUrl);
+            const res = await fetch(url);
             if(!res.ok) throw new Error(res.statusText);
             const html = await res.text();
             this.mainElement.innerHTML = html;

@@ -2,7 +2,7 @@
 return [
     'GET /' => ['App\Controllers\HomeControllers', 'index'],
     'GET /saludo' => ['App\Controllers\HomeControllers', 'saludar'],
-    'GET /supplies' => ['App\Models\Supplies', 'supplies'],
+    'GET /supplies' => ['App\Models\Supplies', 'getAll'],
     'POST /supplies' => ['App\Models\Supplies', 'create'],
 ];
 ?>

@@ -19,6 +19,7 @@ final class Router
 
     private function normalizeUri(string $uri): string
     {
+        /* Ojo tenemos que revisar esto por que es importante la ruta */
         $publicIndex = '/public/index.php';
         if (str_starts_with($uri, $publicIndex)) {
             $uri = substr($uri, strlen($publicIndex));

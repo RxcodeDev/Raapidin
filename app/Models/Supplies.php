@@ -6,13 +6,12 @@ use Exception;
 class Supplies{
     private $db;
     
-    public function supplies(){
-        $this->db = Connection::getInstance();    
+    public function supplies(){    
         return "Este es un modelo de Supplies";
     }
     
     public function create(){
-        header('Content-Type: application/json'); // <-- Importante
+        header('Content-Type: application/json');
         
         $this->db = Connection::getInstance();
         
@@ -35,5 +34,19 @@ class Supplies{
             echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
         }
     }
+    public function getAll(){
+        header('Content-Type: application/json');        
+        $this->db = Connection::getInstance();        
+        try {
+            $sql = "SELECT * FROM insumos";
+            $stmt = $this->db->query($sql);
+            $supplies = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            echo json_encode($supplies);
+        } catch (Exception $e) {
+            echo json_encode(['error' => 'Error al obtener los insumos: ' . $e->getMessage()]);
+        }
+    }    
+    
+    
 }
 ?>
