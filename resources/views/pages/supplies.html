@@ -5,18 +5,14 @@
         <aside class="supplies__options">
             <form method="post">                          
                 <input required type="text" name="nombre" id="nombre" placeholder="Nombre indusumo">
-                <!-- <div class="form-cb">
-                    <label for="check-nueva-unidad">* Nueva unidad</label>
-                    <input type="checkbox" name="check-nueva-unidad" id="check-nueva-unidad">
-                </div> -->
-                <input required type="text" name="nueva_unidad" id="nueva_unidad" placeholder="Nueva unidad">
-                <select name="unidad" id="unidad" disabled hidden>
-                    <option value="" disabled selected>Selecciona una unidad</option>
-                    <option value="kg">Kilogramo</option>
-                    <option value="l">Litro</option>
-                    <option value="pz">Pieza</option>
-                    <option value="m">Metro</option>
-                </select>                
+                <div class="form-cb">
+                    <label for="nueva_unidad_check">* Nueva unidad</label>
+                    <input type="checkbox" name="nueva_unidad_check" id="nueva_unidad_check">
+                </div>
+                <input type="text" name="nueva_unidad" id="nueva_unidad" placeholder="Nueva unidad">
+                <select name="unidad" id="unidad" required>
+                    <option value="" disabled selected>Selecciona una unidad</option>                    
+                </select>
                 <input required type="number" name="costo_unitario" id="costo_unitario" placeholder="Costo" min="1">
                 <input required type="number" name="stock" id="stock" placeholder="Cantidad" min="1">
                 <button type="submit" class="btn btn-primary">Agregar</button>

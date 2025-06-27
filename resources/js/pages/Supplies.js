@@ -1,8 +1,16 @@
+import { HiddenInput } from "../utils/HiddenInput.js";
+import { GenerateOptions } from "../utils/GenerateOptions.js";
 export class Supplies{
    constructor(){
     console.log('Tenemos acceso a Supplies');
     this.initForm();
     this.loadSupplies();
+    this.hiddenInput = new HiddenInput('nueva_unidad_check', 'nueva_unidad');  
+    const units = this.getFieldValues('unidad', true);
+    units.then((data) => {
+        const optionsSetNew = data.map(unit => ({ value: unit, text: unit }));
+        new GenerateOptions('unidad', optionsSetNew);
+    });
    }
     
     async loadSupplies(){
@@ -65,10 +73,7 @@ export class Supplies{
         const currentRows = tbody.querySelectorAll('tr').length;
         
         this.createSupplyRow(supply, currentRows + 1, tbody);
-    }
-    /* Obtener unidad con getbyfield*/
-    
-
+    }    
 
     initForm(){
         const form = document.querySelector('form');
@@ -104,7 +109,7 @@ export class Supplies{
                 form.reset();            
                 this.addNewRowToTable({
                     nombre: formData.get('nombre'),
-                    unidad: formData.get('nueva_unidad'),
+                    unidad: formData.get('unidad'),
                     costo_unitario: formData.get('costo_unitario'),
                     stock: formData.get('stock')
                 });
@@ -114,6 +119,38 @@ export class Supplies{
         }   catch (error){
             console.error('Error al enviar el formulario:', error);
             alert('Error al enviar el formulario: ' + error.message);
+        }
+    }
+    async getFieldValues(field, unique = false) {
+        try {
+            let url = `/public/index.php/supplies/field/${field}`;
+            
+            // Solo agregar parámetro si queremos únicos
+            if (unique) {
+                url += '?unique=true';
+            }
+            
+            const response = await fetch(url, {
+                method: 'GET'
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                throw new Error(`Respuesta no es JSON: ${text.substring(0, 100)}...`);
+            }
+            
+            const values = await response.json();
+            console.log(`Valores ${unique ? 'únicos' : 'completos'} de ${field}:`, values);
+            return values;
+            
+        } catch (error) {
+            console.error(`Error al obtener valores de ${field}:`, error);
+            return [];
         }
     }
 }
