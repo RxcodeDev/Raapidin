@@ -9,7 +9,10 @@
 }
 
 table {
-    width: 100%;    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
     color: var(--table-color);
     font-size: .9rem;
     overflow: hidden;
@@ -17,13 +20,70 @@ table {
     border-collapse: collapse;
     background-color: var(--menu-back);
 }
+thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody {
+    display: block;
+    overflow-y: auto;
+    flex: 1;
+    width: 100%;
+    border: 1px solid var(--table-border-color);
+    border-bottom: none;
+}
+tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
 
 th, td {
-    border: var(--form-element-border-size) var(--input-border-style) var(--table-border-color);
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--table-text-header-color);
+    padding: 2.5px;
+}
+
+th {
+    background-image: var(--background-app);    
+    color: var(--menu-back);
+    font-weight: bold;
+    padding-left: 4px;
+}
+
+td{
+  
+  border: var(--form-element-border-size) var(--input-border-style) var(--table-border-color);
+  border-left: none;
+  border-right: none;
+}
+
+tr:hover{
+  box-shadow: 0 0 10px rgba(139, 139, 139, 0.644);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+}
+
+.edit__row span {
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;   
+}
+
+.edit__row span:hover {
+  color: var(--status-sent);
+  transform: scale(1.05);  
+}
+.edit__row span:nth-child(2):hover {
+  color: var(--status-danger);
 }
 

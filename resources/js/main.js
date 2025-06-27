@@ -6,7 +6,7 @@ import { Supplies } from "./pages/Supplies.js";
 export const main = {
     init() {
         const router = new HashRouter(routes);
-        new ValidateInputs(document);
+        /* new ValidateInputs(document); */
         router.load();
         this.initPageSpecificModules();
     },

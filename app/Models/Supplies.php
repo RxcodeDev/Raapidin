@@ -16,14 +16,14 @@ class Supplies{
         $this->db = Connection::getInstance();
         
         $nombre = $_POST['nombre'] ?? '';
-        $nueva_unidad = $_POST['unidad'] ?? '';
+        $unidad = $_POST['unidad'] ?? '';
         $costo_unitario = $_POST['costo_unitario'] ?? 0;
         $stock = $_POST['stock'] ?? 0;
         
         try {
             $sql = "INSERT INTO insumos (nombre, unidad, costo_unitario, stock) VALUES (?, ?, ?, ?)";
             $stmt = $this->db->prepare($sql);
-            $result = $stmt->execute([$nombre, $nueva_unidad, $costo_unitario, $stock]);
+            $result = $stmt->execute([$nombre, $unidad, $costo_unitario, $stock]);
             
             if ($result) {
                 echo json_encode(['success' => true, 'message' => 'Insumo agregado correctamente']);
@@ -38,7 +38,7 @@ class Supplies{
         header('Content-Type: application/json');        
         $this->db = Connection::getInstance();        
         try {
-            $sql = "SELECT * FROM insumos";
+            $sql = "SELECT id, nombre, unidad, costo_unitario, stock FROM insumos ORDER BY id";
             $stmt = $this->db->query($sql);
             $supplies = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             echo json_encode($supplies);
@@ -76,6 +76,43 @@ class Supplies{
             
         } catch (Exception $e) {
             echo json_encode(['error' => 'Error al obtener valores: ' . $e->getMessage()]);
+        }
+    }
+    
+    public function delete($id = null){
+        header('Content-Type: application/json');
+        $this->db = Connection::getInstance();
+        
+        try {
+            // Validar que se reciba un ID
+            if (!$id) {
+                echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+                return;
+            }
+            
+            // Verificar que el insumo existe antes de eliminarlo
+            $checkSql = "SELECT id FROM insumos WHERE id = ?";
+            $checkStmt = $this->db->prepare($checkSql);
+            $checkStmt->execute([$id]);
+            
+            if (!$checkStmt->fetch()) {
+                echo json_encode(['success' => false, 'message' => 'Insumo no encontrado']);
+                return;
+            }
+            
+            // Eliminar el insumo
+            $sql = "DELETE FROM insumos WHERE id = ?";
+            $stmt = $this->db->prepare($sql);
+            $result = $stmt->execute([$id]);
+            
+            if ($result) {
+                echo json_encode(['success' => true, 'message' => 'Insumo eliminado correctamente']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al eliminar insumo']);
+            }
+            
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
         }
     }
     

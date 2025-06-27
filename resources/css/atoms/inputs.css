@@ -14,13 +14,13 @@ input:valid,select:valid {
     outline: var(--status-success);
 }
 
-input:invalid:focus,
+/* input:invalid:focus,
 select:invalid:focus {
     border-color: var(--status-warning);    
     outline: var(--status-warning);
     color: var(--status-warning);
     caret-color: var(--status-warning);
-}
+} */
 
 input::placeholder {
   color: var(--placesholder-text-color);  

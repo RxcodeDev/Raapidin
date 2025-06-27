@@ -1,15 +1,10 @@
 <section class="supplies__container">
     <h1 class="supplies__title">Lista de Insumos</h1>
-
     <div class="supplies__view">
         <aside class="supplies__options">
             <form method="post">                          
-                <input required type="text" name="nombre" id="nombre" placeholder="Nombre indusumo">
-                <div class="form-cb">
-                    <label for="nueva_unidad_check">* Nueva unidad</label>
-                    <input type="checkbox" name="nueva_unidad_check" id="nueva_unidad_check">
-                </div>
-                <input type="text" name="nueva_unidad" id="nueva_unidad" placeholder="Nueva unidad">
+                <input required type="text" name="nombre" id="nombre" placeholder="Nombre indusumo">            
+                <input required type="text" name="nueva_unidad" id="nueva_unidad" placeholder="Nueva unidad">
                 <select name="unidad" id="unidad" required>
                     <option value="" disabled selected>Selecciona una unidad</option>                    
                 </select>
@@ -20,15 +15,7 @@
         </aside>
         <section class="supplies__list">
             <table id="supplies-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Unidad</th>
-                        <th>Costo</th>
-                        <th>Stock</th>
-                    </tr>
-                </thead>
+                <thead><tr></tr></thead>
                 <tbody id="supplies-tbody"></tbody>
             </table>
         </section>                        
