@@ -26,7 +26,19 @@ class Supplies{
             $result = $stmt->execute([$nombre, $unidad, $costo_unitario, $stock]);
             
             if ($result) {
-                echo json_encode(['success' => true, 'message' => 'Insumo agregado correctamente']);
+                $newId = $this->db->lastInsertId();
+                echo json_encode([
+                    'success' => true, 
+                    'message' => 'Insumo agregado correctamente',
+                    'id' => (int)$newId,
+                    'data' => [
+                        'id' => (int)$newId,
+                        'nombre' => $nombre,
+                        'unidad' => $unidad,
+                        'costo_unitario' => $costo_unitario,
+                        'stock' => $stock
+                    ]
+                ]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Error al agregar insumo']);
             }

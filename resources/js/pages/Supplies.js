@@ -155,7 +155,7 @@ export class Supplies {
             
             if (result.success) {
                 this.table.remove(supplyId);
-                alert(`Insumo "${supplyName}" eliminado correctamente`);
+                console.log(`Insumo "${supplyName}" eliminado correctamente`);
             } else {
                 alert('Error al eliminar: ' + result.message);
             }
@@ -231,19 +231,22 @@ export class Supplies {
     }
 
     async handleSuccessfulSubmission(form, result, unidadSeleccionada, finalFormData, unidadFinal) {
-        alert('Insumo agregado correctamente');
+        console.log('Insumo agregado correctamente');
         form.reset();
         
         if (unidadSeleccionada === 'nueva') {
             await this.loadDynamicUnits();
         }
         
-        this.table.add({
+        // Usar los datos devueltos por el servidor, especialmente el ID real
+        const newItem = result.data || {
             id: result.id || Date.now(),
             nombre: finalFormData.get('nombre'),
             unidad: unidadFinal,
             costo_unitario: finalFormData.get('costo_unitario'),
             stock: finalFormData.get('stock')
-        });
+        };
+        
+        this.table.add(newItem);
     }
 }

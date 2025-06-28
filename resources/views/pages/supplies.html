@@ -3,13 +3,13 @@
     <div class="supplies__view">
         <aside class="supplies__options">
             <form method="post">                          
-                <input required type="text" name="nombre" id="nombre" placeholder="Nombre indusumo">            
+                <input required type="text" name="nombre" id="nombre" placeholder="Nombre indusumo">
+                <input required type="number" name="stock" id="stock" placeholder="Cantidad" min="1">            
                 <input required type="text" name="nueva_unidad" id="nueva_unidad" placeholder="Nueva unidad">
                 <select name="unidad" id="unidad" required>
                     <option value="" disabled selected>Selecciona una unidad</option>                    
-                </select>
-                <input required type="number" name="costo_unitario" id="costo_unitario" placeholder="Costo" min="1">
-                <input required type="number" name="stock" id="stock" placeholder="Cantidad" min="1">
+                </select>                
+                <input required type="number" name="costo_unitario" id="costo_unitario" placeholder="Costo" min="1">                
                 <button type="submit" class="btn btn-primary">Agregar</button>
             </form>
         </aside>

@@ -73,7 +73,8 @@ export class Table {
 
     add(item) {
         const num = this.tbody.children.length + 1;
-        this.tbody.insertAdjacentHTML('beforeend', this.row(item, num));
+        const rowHtml = this.row(item, num);
+        this.tbody.insertAdjacentHTML('beforeend', rowHtml);
     }
 
     remove(id) {
