@@ -22,3 +22,26 @@
         </section>
     </div>
 </section>
+
+<dialog id="edit-dialog">
+    <div class="dialog-content">
+        <div class="dialog-header">
+            <h2>Editar Insumo</h2>
+            <button type="button" class="dialog-close" aria-label="Cerrar">&times;</button>
+        </div>
+        <form id="edit-form" class="dialog-body" method="dialog">
+            <input type="hidden" id="edit-id" name="id">
+            <input required type="text" id="edit-nombre" name="nombre" placeholder="Nombre insumo">
+            <input required type="number" id="edit-stock" name="stock" placeholder="Cantidad" min="1">
+            <input type="text" id="edit-nueva_unidad" name="nueva_unidad" placeholder="Nueva unidad">
+            <select id="edit-unidad" name="unidad" required>
+                <option value="" disabled>Selecciona una unidad</option>
+            </select>
+            <input required type="number" id="edit-costo_unitario" name="costo_unitario" placeholder="Costo" min="1">
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-secondary" value="cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" value="save">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</dialog>

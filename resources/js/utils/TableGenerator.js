@@ -91,5 +91,190 @@ export class Table {
                 row.cells[0].textContent = i + 1;
             });
         }
+   }
+
+    // Método para configurar modal de edición (opcional)
+    enableEditModal(dialogId, config = {}) {
+        this.dialog = document.getElementById(dialogId);
+        if (!this.dialog) {
+            console.error(`Dialog con ID '${dialogId}' no encontrado`);
+            return;
+        }
+        
+        this.editConfig = {
+            updateUrl: config.updateUrl || null,
+            onBeforeEdit: config.onBeforeEdit || null,
+            onAfterEdit: config.onAfterEdit || null,
+            ...config
+        };
+        
+        this.setupEditModal();
+    }
+
+    setupEditModal() {
+        if (!this.dialog) return;
+        
+        const closeBtn = this.dialog.querySelector('.dialog-close');
+        const cancelBtn = this.dialog.querySelector('[value="cancel"]');
+        const form = this.dialog.querySelector('form');
+        
+        // Event listeners para cerrar
+        closeBtn?.addEventListener('click', () => this.closeEditModal());
+        cancelBtn?.addEventListener('click', () => this.closeEditModal());
+        
+        // Event listener para el formulario
+        form?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleEditSubmit(form);
+        });
+        
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.dialog.open) {
+                this.closeEditModal();
+            }
+        });
+    }
+
+    openEditModal(itemId) {
+        if (!this.dialog) {
+            console.error('Modal de edición no configurado');
+            return;
+        }
+        
+        // Buscar la fila y extraer datos
+        const row = this.tbody.querySelector(`[data-id="${itemId}"]`);
+        if (!row) {
+            console.error('Fila no encontrada');
+            return;
+        }
+        
+        const item = this.extractRowData(row, itemId);
+        
+        // Callback antes de editar
+        if (this.editConfig.onBeforeEdit) {
+            this.editConfig.onBeforeEdit(item, this.dialog);
+        }
+        
+        // Llenar formulario con datos básicos
+        this.populateEditForm(item);
+        
+        // Abrir dialog nativo
+        this.dialog.showModal();
+    }
+
+    extractRowData(row, itemId) {
+        const item = { id: itemId };
+        const cells = row.cells;
+        
+        // Extraer datos basado en las columnas definidas
+        this.columns.forEach((col, index) => {
+            if (col.field && cells[index]) {
+                let value = cells[index].textContent.trim();
+                
+                // Limpiar formato de dinero
+                if (col.type === 'money') {
+                    value = value.replace('$', '');
+                }
+                
+                item[col.field] = value;
+            }
+        });
+        
+        return item;
+    }
+
+    populateEditForm(item) {
+        // Llenar campos que coincidan con item[field]
+        Object.keys(item).forEach(key => {
+            const input = this.dialog.querySelector(`[name="${key}"], #edit-${key}`);
+            if (input) {
+                input.value = item[key];
+            }
+        });
+    }
+
+    closeEditModal() {
+        if (this.dialog) {
+            this.dialog.close();
+            const form = this.dialog.querySelector('form');
+            form?.reset();
+        }
+    }
+
+    async handleEditSubmit(form) {
+        if (!this.editConfig.updateUrl) {
+            console.error('URL de actualización no configurada');
+            return;
+        }
+        
+        let formData = new FormData(form);
+        const itemId = formData.get('id');
+        
+        // Validar que el ID sea válido
+        if (!itemId || itemId === 'null' || itemId === 'undefined') {
+            console.error('ID del item no válido:', itemId);
+            alert('Error: ID del elemento no válido. Por favor, recarga la página e intenta de nuevo.');
+            return;
+        }
+        
+        console.log('Enviando actualización para ID:', itemId);
+        
+        // Callback para procesar FormData antes del envío
+        if (this.editConfig.processFormData) {
+            formData = await this.editConfig.processFormData(formData, form);
+            if (!formData) return; // Cancelar si processFormData retorna null/false
+        }
+        
+        try {
+            const response = await fetch(this.editConfig.updateUrl.replace('{id}', itemId), {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Actualizar la fila en la tabla
+                this.updateRowData(itemId, result.data);
+                
+                // Callback después de editar
+                if (this.editConfig.onAfterEdit) {
+                    await this.editConfig.onAfterEdit(result, formData);
+                }
+                
+                this.closeEditModal();
+            } else {
+                alert('Error al actualizar: ' + result.message);
+            }
+            
+        } catch (error) {
+            console.error('Error al actualizar:', error);
+            alert('Error al actualizar: ' + error.message);
+        }
+    }
+
+    updateRowData(itemId, data) {
+        const row = this.tbody.querySelector(`[data-id="${itemId}"]`);
+        if (!row) return;
+        
+        const cells = row.cells;
+        
+        // Actualizar cada celda basado en las columnas
+        this.columns.forEach((col, index) => {
+            if (col.field && data[col.field] !== undefined && cells[index]) {
+                let content = data[col.field];
+                
+                if (col.type === 'money') {
+                    content = `$${content}`;
+                }
+                
+                cells[index].textContent = content;
+            }
+        });
     }
 }

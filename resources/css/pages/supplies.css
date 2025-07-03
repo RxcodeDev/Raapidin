@@ -57,6 +57,23 @@
 }
 
 
+/* Responsive */
+@media (max-width: 768px) {
+    dialog {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .dialog-actions {
+        flex-direction: column;
+    }
+    
+    .dialog-actions .btn {
+        width: 100%;
+    }
+}
+
+
 
 
 

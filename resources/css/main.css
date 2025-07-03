@@ -4,6 +4,8 @@
 @import url('./atoms/containers.css');
 @import url('./pages/supplies.css');
 @import url('./templates/tables.css');
+@import url('./templates/dialogsTable.css');
+
 @view-transition{
   navigation: auto;
 }
@@ -34,14 +36,14 @@
     --focus-border-form-element: var(--status-sent);
     
     /* Atributos visuales por defecto */
-    --form-element-text-color: var(--status-offline);
+    --form-element-text-color: var(--status-init);
     --input-placeholder-text-color: var(--status-offline); 
-    --form-element-border-color: var(--status-offline);
+    --form-element-border-color: var(--status-init);
     --form-element-border-size: var(--input-borderSize-default);
     --form-element-hover: var(--hover-app-color);
     --input-border-style: var(--input-borderStyle-default);
     --picker-form-element: var(var(--status-offline));
-
+    --size-form-element: clamp(0.9rem, 2vw, 1rem);
     --input-borderSize-default: 1.5px;
     --input-borderStyle-default: solid;
 }

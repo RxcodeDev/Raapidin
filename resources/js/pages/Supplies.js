@@ -17,6 +17,7 @@ export class Supplies {
         this.initSelectToggle();
         await this.loadDynamicUnits();
         await this.loadSupplies();
+        this.configureEditModal();
     }
 
     initSelectToggle() {
@@ -54,6 +55,57 @@ export class Supplies {
                 this.submitForm(form);
             });
         }
+    }
+
+    configureEditModal() {
+        // Configurar el modal reutilizable del TableGenerator
+        this.table.enableEditModal('edit-dialog', {
+            updateUrl: '/public/index.php/supplies/update/{id}',
+            onBeforeEdit: async (item, dialog) => {
+                // Cargar unidades en el select del modal
+                await this.loadModalUnits();
+                
+                // Configurar SelectToggle para el modal
+                if (!this.editSelectToggle) {
+                    this.editSelectToggle = new SelectToggle('edit-unidad', 'edit-nueva_unidad', 'nueva');
+                }
+                
+                // Establecer el valor de la unidad después de cargar las opciones
+                const editSelect = document.getElementById('edit-unidad');
+                if (editSelect && item.unidad) {
+                    editSelect.value = item.unidad;
+                }
+            },
+            processFormData: async (formData, form) => {
+                // Manejar la lógica de nueva unidad
+                const unidadSeleccionada = formData.get('unidad');
+                
+                if (unidadSeleccionada === 'nueva') {
+                    if (!this.editSelectToggle.isValid()) {
+                        alert('Por favor ingresa una nueva unidad');
+                        return null; // Cancelar el envío
+                    }
+                    
+                    // Crear nuevo FormData con la unidad final
+                    const finalFormData = new FormData();
+                    finalFormData.append('nombre', formData.get('nombre'));
+                    finalFormData.append('unidad', this.editSelectToggle.getInputValue());
+                    finalFormData.append('costo_unitario', formData.get('costo_unitario'));
+                    finalFormData.append('stock', formData.get('stock'));
+                    
+                    return finalFormData;
+                }
+                
+                return formData; // Usar FormData original
+            },
+            onAfterEdit: async (result, formData) => {
+                // Si se agregó una nueva unidad, recargar las opciones del formulario principal
+                if (formData.get('unidad') !== document.querySelector('#edit-unidad').value) {
+                    await this.loadDynamicUnits();
+                }
+                console.log('Insumo actualizado correctamente');
+            }
+        });
     }
 
     // === CARGA DE DATOS ===
@@ -126,8 +178,9 @@ export class Supplies {
 
     // === OPERACIONES CRUD ===
     editSupply(supplyId, supplyName) {
-        console.log('Editar insumo:', supplyId, supplyName);
-        // TODO: Implementar lógica de edición
+        console.log('Editando supply con ID:', supplyId, 'Nombre:', supplyName);
+        // Usar el modal reutilizable del TableGenerator
+        this.table.openEditModal(supplyId);
     }
 
     async deleteSupply(supplyId, supplyName) {
@@ -231,22 +284,60 @@ export class Supplies {
     }
 
     async handleSuccessfulSubmission(form, result, unidadSeleccionada, finalFormData, unidadFinal) {
-        console.log('Insumo agregado correctamente');
+        console.log('Insumo agregado correctamente', result);
         form.reset();
         
         if (unidadSeleccionada === 'nueva') {
             await this.loadDynamicUnits();
         }
         
-        // Usar los datos devueltos por el servidor, especialmente el ID real
-        const newItem = result.data || {
-            id: result.id || Date.now(),
+        // Verificar que tenemos un ID válido del servidor
+        let itemId = result.data?.id || result.id;
+        
+        if (!itemId) {
+            console.error('Servidor no devolvió un ID válido:', result);
+            // En lugar de usar Date.now(), recargar la tabla completa
+            await this.loadSupplies();
+            return;
+        }
+        
+        // Crear el nuevo item con el ID real del servidor
+        const newItem = {
+            id: itemId,
             nombre: finalFormData.get('nombre'),
             unidad: unidadFinal,
             costo_unitario: finalFormData.get('costo_unitario'),
-            stock: finalFormData.get('stock')
+            stock: finalFormData.get('stock'),
+            ...result.data // Agregar cualquier dato adicional del servidor
         };
         
         this.table.add(newItem);
+    }
+
+    async loadModalUnits() {
+        try {
+            const units = await this.getFieldValues('unidad', true);
+            const editSelect = document.getElementById('edit-unidad');
+            
+            // Limpiar opciones existentes excepto la primera
+            editSelect.innerHTML = '<option value="" disabled>Selecciona una unidad</option>';
+            
+            // Agregar las unidades
+            units.forEach(unit => {
+                const option = document.createElement('option');
+                option.value = unit;
+                option.textContent = unit;
+                editSelect.appendChild(option);
+            });
+            
+            // Agregar opción "nueva unidad"
+            const newOption = document.createElement('option');
+            newOption.value = 'nueva';
+            newOption.textContent = 'Nueva unidad*';
+            editSelect.appendChild(newOption);
+            
+        } catch (error) {
+            console.error('Error cargando unidades para modal:', error);
+        }
     }
 }

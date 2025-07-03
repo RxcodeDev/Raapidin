@@ -128,5 +128,57 @@ class Supplies{
         }
     }
     
+    public function update($id = null){
+        header('Content-Type: application/json');
+        $this->db = Connection::getInstance();
+        
+        try {
+            // Validar que se reciba un ID
+            if (!$id) {
+                echo json_encode(['success' => false, 'message' => 'ID no proporcionado']);
+                return;
+            }
+            
+            $nombre = $_POST['nombre'] ?? '';
+            $unidad = $_POST['unidad'] ?? '';
+            $costo_unitario = $_POST['costo_unitario'] ?? 0;
+            $stock = $_POST['stock'] ?? 0;
+            
+            // Verificar que el insumo existe
+            $checkSql = "SELECT id FROM insumos WHERE id = ?";
+            $checkStmt = $this->db->prepare($checkSql);
+            $checkStmt->execute([$id]);
+            
+            if (!$checkStmt->fetch()) {
+                echo json_encode(['success' => false, 'message' => 'Insumo no encontrado']);
+                return;
+            }
+            
+            // Actualizar el insumo
+            $sql = "UPDATE insumos SET nombre = ?, unidad = ?, costo_unitario = ?, stock = ? WHERE id = ?";
+            $stmt = $this->db->prepare($sql);
+            $result = $stmt->execute([$nombre, $unidad, $costo_unitario, $stock, $id]);
+            
+            if ($result) {
+                echo json_encode([
+                    'success' => true, 
+                    'message' => 'Insumo actualizado correctamente',
+                    'data' => [
+                        'id' => (int)$id,
+                        'nombre' => $nombre,
+                        'unidad' => $unidad,
+                        'costo_unitario' => $costo_unitario,
+                        'stock' => $stock
+                    ]
+                ]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar insumo']);
+            }
+            
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        }
+    }
+    
 }
 ?>

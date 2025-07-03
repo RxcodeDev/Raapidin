@@ -6,14 +6,16 @@ input,select,button{
     color: var(--form-element-text-color);
     padding: 2px;
     background-color: var(--menu-back);
+    font-size: var(--size-form-element);
 }
 
-input:valid,select:valid {
+/* input:valid,select:valid {
     border-color: var(--status-success);
     color: var(--status-success);
     outline: var(--status-success);
-}
+} */
 
+/* No borrar lo comentado */
 /* input:invalid:focus,
 select:invalid:focus {
     border-color: var(--status-warning);    
@@ -39,27 +41,19 @@ input:focus::placeholder {
 
 select,::picker(select){
     appearance: base-select;
-    font-size: 13.5px;
+    font-size: var(--size-form-element);    
 }
 
-select selectedcontent{        
-    margin: 0;
-    padding-left: 8px;
-    color: var(--form-element-text-color);
+
+select::picker(select){
+    border-color: var(--form-element-border-color);
+    background-color: var(--menu-back);
 }
 
 select:hover{
     cursor: pointer;
 }
 
-::picker(select){
-    background-color: var(--menu-back);
-    color: var(--status-init);    
-    box-shadow: 0 0 2px var(--form-element-hover);    
-    overflow-x: hidden;
-    border: none;
-    
-}
 
 select::picker-icon{
     color: var(--picker-form-element);
@@ -69,6 +63,15 @@ select::picker-icon{
 select:open{
     color: var(--focus-picker-form-element);
     border-color: var(--focus-picker-form-element);    
+}
+
+select:open::picker(select){
+    border-color: var(--focus-picker-form-element);
+    background-color: var(--menu-back);
+}
+
+select:open selectedcontent{
+    border-color: var(--focus-picker-form-element);
 }
 
 select:open::picker-icon{
@@ -113,7 +116,6 @@ button:hover{
 
 label{
     color: var(--form-element-text-color);
-    font-size: 13.5px;
 }
 /* checkbox */
 input[type="checkbox"] {
@@ -141,11 +143,14 @@ input[type="checkbox"]:checked::before {
     justify-content: center;
     width: 100%;
     height: 100%;
-
 }
 
-.input--error {}
-.input--success {}
+/* Solo en modales no se puede aplicar */
+dialog select {
+    appearance: auto;
+}
+
+
 
 
 

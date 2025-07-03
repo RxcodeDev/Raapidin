@@ -12,6 +12,7 @@
     --mobile-header-width: 25%;
     --mobile-body-width: 75%;
     --mobile-cell-padding: calc(var(--mobile-base-size) * 0.5) calc(var(--mobile-base-size) * 0.25);
+    --size-table-text: clamp(0.9rem, 2vw, 1rem);
 }
 
 table {
@@ -20,7 +21,7 @@ table {
     height: 100%;
     width: 100%;
     color: var(--table-color);
-    font-size: .9rem;
+    font-size: var(--size-table-text);
     overflow: hidden;
     table-layout: fixed;
     border-collapse: collapse;
@@ -81,7 +82,7 @@ tr:hover{
 
 .edit__row span {
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     transition: color 0.3s ease;   
 }
 
@@ -127,7 +128,7 @@ tr:hover{
         padding: var(--mobile-cell-padding);
         border-bottom: 1px solid var(--table-border-color);
         text-align: center;
-        font-size: 0.8rem;
+        font-size: var(--size-table-text);
         box-sizing: border-box;
         flex-shrink: 0;
     }

@@ -4,6 +4,7 @@ return [
     'GET /saludo' => ['App\Controllers\HomeControllers', 'saludar'],
     'GET /supplies' => ['App\Models\Supplies', 'getAll'],
     'POST /supplies' => ['App\Models\Supplies', 'create'],
+    'POST /supplies/update/{id}' => ['App\Models\Supplies', 'update'],
     'POST /supplies/delete/{id}' => ['App\Models\Supplies', 'delete'],
     'GET /supplies/field/{field}' => ['App\Models\Supplies', 'getFieldValues'],
 ];
