@@ -37,13 +37,16 @@
 .side-tools ul{
   display: flex;
   flex-direction: column;
-  padding: .5rem;
+  padding: .3rem;
   gap: .5rem;
   list-style: none;
 }
 
 .side-tools ul li{
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .side-tools ul li:hover{
@@ -62,11 +65,31 @@
 
 .side-tools ul li span{
   font-size: clamp(1rem, 2.5vw, 2.25rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(1rem, 2.5vw, 2.25rem);
+  height: clamp(1rem, 2.5vw, 2.25rem);
+}
+
+.side-tools ul li span.logo{
+  width: clamp(1.8rem, 4vw, 3.5rem);
+  height: clamp(1.8rem, 4vw, 3.5rem);
+}
+
+.side-tools ul li span img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .side-tools ul li span:hover{
   text-shadow: .5px .5px .5px var(--acent-rgba);
   color: var(--color-hover);
+}
+
+.side-tools ul li span.logo:hover{
+  cursor:context-menu;
 }
 
 .content-app{
