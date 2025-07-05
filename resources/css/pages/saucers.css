@@ -1,0 +1,147 @@
+/* ===== SAUCERS SECTION ===== */
+.saucers {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;    
+    gap: 1rem;
+    border: 3px solid rgb(56, 56, 56);
+    container-type: inline-size;
+}
+
+.saucer__container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.saucer__main {
+    display: flex;
+    flex-wrap: wrap;
+    height: 50%;
+    border: 1px solid rgb(56, 56, 56);
+}
+
+.saucer__content {
+    flex: 5;
+    min-width: 300px;
+}
+
+.saucer__preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    padding: 1rem;
+}
+
+.saucer__catalog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    border: 1px solid rgb(56, 56, 56);
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.products__grid {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+    overflow-x: auto;
+    width: 100%;
+    flex: 1;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 12vw;
+    min-width: 10vw;
+    flex-shrink: 0;
+    height: fit-content;        
+    border-radius: 5px;
+    box-shadow: var(--box-shadow-dark);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.card--preview {
+    width: 10vw;
+    min-width: 8vw;
+}
+
+.card__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+    color: white;
+    background-image: var(--background-app);
+}
+
+.card__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 6;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;    
+}
+
+.card__figure {    
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 8vw;
+    min-height: 80px;
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.card__figure img {
+    width: 6vw;
+    height: 6vw;
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.card__info {
+    flex: 1;
+    padding: .5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: baseline;
+    text-align: baseline;
+}
+.saucer__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    background-image: var(--background-app);
+
+}
+
+
+
+
+
+
+

@@ -101,33 +101,6 @@
   padding: 1rem;
 }
 
-.orders{
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
-  width: 100%;
-  height: 100%;
-}
-.food__container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-/* Elemento que se va ir a cobra */
-.form-cb {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  padding: 2px;
-  background-color: var(--menu-back);
-  border: var(--form-element-border-size) var(--input-border-style) var(--form-element-border-color);
-  border-radius: 2px;
-  gap: .2rem;
-}
-
 .btn--icon{
   
 }

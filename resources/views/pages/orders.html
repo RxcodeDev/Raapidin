@@ -1,25 +1,29 @@
 <section class="orders">
-    <h1>Captura manual de pedidos</h1>
-    <form class="food__container">
-        <h3>Platillos</h3>
-        <div class="food-items" id="food-items">                    
-            <template class="food-item">
-                <button class="form-cb btn saucer-btn">
-                <span class="material-symbols-outlined btn--icon"></span>
-                <span class="saucer-name btn--txt">Element</span>
-                </button>
-            </template>
+    <h1>Pedido</h1>
+
+    <form action="" style="display: inline-flex;">
+        <div class="form-element">
+            <label for="">Cliente</label>
+            <select name="" id="">
+                <option value="" disabled selected>Selecciona un cliente</option>
+            </select>
+        </div>
+        <div class="form-element">
+            <label for="">Direccion</label>
+            <select name="" id="">
+                <option value="" disabled selected>Selecciona una direccion</option>
+            </select>
+        </div>
+        <div class="form-element">
+            <label for="">Telefono</label>
+            <select name="" id="">
+                <option value="" disabled selected>Selecciona un telefono</option>
+            </select>
+        </div>
+        <div class="form-element">
+            <label for="">Comentarios</label>
+            <input type="text">
         </div>
     </form>
-    <form action="">
-        <h1>Captura manual de pedidos</h1>
-        <input required type="text">
-        <input required type="email">
-        <select required name="" id="">
-            <!-- valor por defecto -->
-            <option value="" disabled selected>Selecciona un platillo</option>
-            <option value="0">si</option>
-        </select>
-        <button>Enviar</button>
-    </form>
+
 </section>
