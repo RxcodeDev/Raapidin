@@ -1,12 +1,12 @@
 export class HashRouter{
     constructor(routes){
         this.routes = routes;
-        this.mainElement = document.querySelector('.content-app');
+        this.mainElement = document.querySelector('.buensazon__content');
         window.addEventListener('hashchange', () => this.load());
         this.bindLinks();
     }
     bindLinks(){
-        document.querySelectorAll('.side-tools [data-page]').forEach(link => {
+        document.querySelectorAll('.navigation__sidebar [data-page]').forEach(link => {
             link.addEventListener('click', e => {
                 e.preventDefault();
                 const page = link.dataset.page;

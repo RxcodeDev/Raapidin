@@ -8,24 +8,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>Rxcode Software</title>
 </head>
-<body class="app">
-    <header class="menu-app">
-        <nav class="side-tools">
-            <ul>
-                <li><a><span class="logo"><img src="./assets/raapidin.png" alt="Client Image"></span></a></li>
-                <li><a href="#kitchen" data-page="kitchen"><span class="material-symbols-outlined">restaurant</span></a></li>
-                <li><a href="#delivery" data-page="delivery"><span class="material-symbols-outlined">directions_bike</span></a></li>
-                <li><a href="#orders" data-page="orders"><span class="material-symbols-outlined">support_agent</span></a></li>
-                <li><a href="#inventory" data-page="inventory"><span class="material-symbols-outlined">inventory</span></a></li>                
-                <li><a href="#saucers" data-page="saucers"><span class="material-symbols-outlined">restaurant_menu</span></a></li>
-                <li><a href="#supplies" data-page="supplies"><span class="material-symbols-outlined">inventory_2</span></a></li>
-                <li><a href="#reports" data-page="reports"><span class="material-symbols-outlined">analytics</span></a></li>
-                <li><a href="#customers" data-page="customers"><span class="material-symbols-outlined">people</span></a></li>
-                <li><a href="#settings" data-page="settings"><span class="material-symbols-outlined">settings</span></a></li>
+<body class="buensazon">
+    <header class="navigation">
+        <nav class="navigation__sidebar">
+            <ul class="navigation__list">
+                <li class="navigation__item">
+                    <a class="navigation__link">
+                        <span class="navigation__icon navigation__icon--logo">
+                            <img src="./assets/busses.jpg" alt="Client Image">
+                        </span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#kitchen" data-page="kitchen">
+                        <span class="navigation__icon material-symbols-outlined">restaurant</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#delivery" data-page="delivery">
+                        <span class="navigation__icon material-symbols-outlined">directions_bike</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#orders" data-page="orders">
+                        <span class="navigation__icon material-symbols-outlined">support_agent</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#inventory" data-page="inventory">
+                        <span class="navigation__icon material-symbols-outlined">inventory</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#saucers" data-page="saucers">
+                        <span class="navigation__icon material-symbols-outlined">restaurant_menu</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#supplies" data-page="supplies">
+                        <span class="navigation__icon material-symbols-outlined">inventory_2</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#reports" data-page="reports">
+                        <span class="navigation__icon material-symbols-outlined">analytics</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#customers" data-page="customers">
+                        <span class="navigation__icon material-symbols-outlined">people</span>
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a class="navigation__link" href="#settings" data-page="settings">
+                        <span class="navigation__icon material-symbols-outlined">settings</span>
+                    </a>
+                </li>
+                
             </ul>
         </nav>
     </header>
-    <main class="content-app"></main> 
+    <main class="buensazon__content"></main> 
     <footer class="info-app"></footer>    
     <script type="module" src="./app.js"></script>
 </body>

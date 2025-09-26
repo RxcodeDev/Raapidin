@@ -4,6 +4,7 @@
 @import url('./atoms/containers.css');
 @import url('./pages/supplies.css');
 @import url('./pages/saucers.css');
+@import url('./pages/orders.css');
 @import url('./templates/tables.css');
 @import url('./templates/dialogsTable.css');
 
@@ -18,6 +19,9 @@
   --color-hover: var(--color-hover_raapidin);
   --box-shadow-dark: var(--box-shadow-dark-raapidin);
   --font-app: var(--font_raapidin);
+
+  --size-navigation-icons: calc(clamp(1rem, 2.5vw, 2.25rem) * 1);
+  --size-navigation-icons-logo: calc(clamp(1rem, 2.5vw, 2.25rem) * 1.5);
 
     /* Eventos visuales */
     --status-success: #28c76f;  

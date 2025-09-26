@@ -1,0 +1,146 @@
+.orders{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    /* border : var(--input-borderSize-default) solid var(--form-element-border-color); */
+}
+
+.orders form{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid red; */
+}
+
+.whatsapp__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    width: 15vw;
+    /* border: var(--input-borderSize-default) solid var(--form-element-border-color); */
+}
+
+.whatsapp__head{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #075e54;
+    height: 4.5vh;
+}
+
+.whatsapp__head ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    list-style: none;
+    width: 100%;
+}
+
+.whatsapp__head--user-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.whatsapp__head--user-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.user-circle{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;    
+}
+
+.user-circle img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    
+}
+
+.whatsapp__container .whatsapp__header{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp__body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.whatsapp__body img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.whatsapp__footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: .5rem;
+    width: 100%;
+    padding: .5rem;
+    gap: .5rem;
+}
+
+.input__message{
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 90%;    
+}
+
+.sent-message span{
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.input__message-input{
+    width: 100%;
+    height: auto;
+    border: none;
+    outline: none;
+    padding: .4rem;
+}
+
+.sent-message{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #075e54;
+    width: 10%;
+    padding: 1rem;
+}
+
