@@ -6,7 +6,6 @@ use App\Router\Router;
 
 $router = new Router();
 
-// Cargar rutas desde archivo
 $routes = require __DIR__ . '/../routes/api.php';
 foreach ($routes as $route => $handler) {
     $parts = explode(' ', $route, 2);

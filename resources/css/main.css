@@ -1,11 +1,14 @@
 @import url('./base/normalizeApp.css');
 @import url('./base/clientUxUi.css');
 @import url('./atoms/inputs.css');
+@import url('./organisms/forms.css');
 @import url('./atoms/containers.css');
+@import url('./templates/modals.css');
 @import url('./pages/supplies.css');
 @import url('./pages/saucers.css');
 @import url('./pages/orders.css');
-@import url('./templates/tables.css');
+@import url('./pages/user-management.css');
+/* @import url('./templates/tables.css'); */
 @import url('./templates/dialogsTable.css');
 
 @view-transition{
@@ -52,3 +55,9 @@
     --input-borderSize-default: 1.5px;
     --input-borderStyle-default: solid;
 }
+
+/* Configuraciones de cobra */
+.hidden {
+  display: none !important;
+}
+

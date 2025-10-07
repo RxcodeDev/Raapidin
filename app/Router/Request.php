@@ -93,6 +93,11 @@ final class Request
         return $this->query;
     }
 
+    public function query(string $key, mixed $default = null): mixed
+    {
+        return $this->query[$key] ?? $default;
+    }
+
     public function all(): array
     {
         return array_merge($this->query, $this->body, $this->params);

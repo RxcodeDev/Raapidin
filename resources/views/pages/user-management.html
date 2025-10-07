@@ -1,0 +1,95 @@
+<section class="user-management">    
+    <div class="user-management__header">
+        <div class="user-management__header-content">
+            <h1 class="user-management__title">Gestion de Usuarios</h1>
+            <p class="user-management__subtitle">Administra los usuarios de la aplicación</p>
+        </div>
+        <nav class="user-management__toolbar">
+            <ul class="user-management__list">
+                <li class="user-management__item">
+                    <button class="user-management__button" data-view="table" title="Vista de tabla" id="button-table-view">
+                        <span class="material-symbols-outlined">table_rows</span>
+                    </button>
+                </li>                
+                <li class="user-management__item">
+                    <button class="user-management__button" data-view="cards" title="Vista de tarjetas" id="button-cards-view">
+                        <span class="material-symbols-outlined">view_module</span>
+                    </button>
+                </li>
+                <button class="user-management__button user-management__button--add"><span class="material-symbols-outlined">add</span>Nuevo Usuario</button>
+            </ul>            
+        </nav>                
+    </div>
+    <div class="user-management__actions">
+        <div class="user-management__search">            
+            <input type="text" class="user-management__input" placeholder="Busqueda por usuarios">                        
+            <button class="user-management__button user-management__button--icon"><span class="material-symbols-outlined">search</span></button>
+        </div>
+        <button class="user-management__button user-management__button--filter"><span class="material-symbols-outlined">filter_list</span>Filtros</button>
+        <button class="user-management__button user-management__button--export"><span class="material-symbols-outlined">file_download</span>Exportar</button>
+    </div>
+    <div class="user-management__table-wrapper" id="users-table-wrapper">
+        <table class="user-management__table">
+            <thead>
+                <tr>
+                    <th class="user-management__th">Usuario</th>
+                    <th class="user-management__th">Email</th>
+                    <th class="user-management__th">Rol</th>
+                    <th class="user-management__th">Fecha Registro</th>
+                    <th class="user-management__th">Ultima Conexión</th>
+                    <th class="user-management__th">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="user-management__tbody">
+                <tr class="user-management__row">
+                    <td class="user-management__cell">
+                        <div class="user-management__user">
+                            <span class="user-management__avatar">FC</span>
+                            <div class="user-management__info">
+                                <span class="user-management__name"><strong>Fany Cano</strong></span>
+                                <span class="user-management__job">Cocina</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="user-management__cell">Fany@example.com</td>
+                    <td class="user-management__cell"><span class="user-management__badge user-management__badge--admin">Admin</span></td>
+                    <td class="user-management__cell">2023-01-01</td>
+                    <td class="user-management__cell">2023-01-02</td>
+                    <td class="user-management__cell">
+                        <span class="user-management__icon user-management__icon--edit material-symbols-outlined">settings</span>
+                        <span class="user-management__icon user-management__icon--delete material-symbols-outlined">delete</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
+    </div>
+    <div class="user-management__cards" id="users-cards-wrapper">
+        <div class="user-management__card">
+            <div class="user-management__card-header">                
+                <div class="user-management__info">
+                    <span class="user-management__avatar">FC</span>
+                    <div class="user-management__info-text">
+                        <span class="user-management__name"><strong>Fany Cano</strong></span>
+                        <span class="user-management__job">Cocina</span>
+                    </div>
+                </div>
+                <span class="user-management__icon user-management__icon--edit material-symbols-outlined" title="Editar Usuario">more_vert</span>
+            </div>
+            <div class="user-management__card-body">
+                <p class="user-management__email"><span class="material-symbols-outlined">email</span>Fany@example.com</p>
+                <p class="user-management__badge"><span class="material-symbols-outlined">admin_panel_settings</span><span class="user-management__badge--admin">Admin</span></p>
+                <p class="user-management__date"><span class="material-symbols-outlined">calendar_today</span>Registro: 2023-01-01</p>
+            </div>
+            <div class="user-management__card-footer">                
+                <button class="user-management__button user-management__button--edit">Editar</button>
+                <button class="user-management__button user-management__button--delete">Eliminar</button>
+            </div>
+        </div>                       
+    </div>
+
+    <dialog class="user-management__modal" id="user-modal" data-icon="person_add" data-title="Nuevo Usuario" data-has-form="true">
+
+    </dialog>    
+
+</section>
+

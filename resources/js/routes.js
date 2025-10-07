@@ -8,4 +8,6 @@ export const routes ={
     reports:    '/resources/views/pages/reports.html',
     customers:  '/resources/views/pages/customers.html',
     settings:   '/resources/views/pages/settings.html',
+    user_management:   '/resources/views/pages/user-management.html',
+    tenants:    '/resources/views/pages/tenants.html',
 }

@@ -36,4 +36,24 @@ abstract class BaseController
         }
         $this->response->json($response);
     }
+
+    protected function paginatedResponse(array $data, array $meta, string $message = 'Success'): void
+    {
+        $response = [
+            'success' => true,
+            'message' => $message,
+            'data' => $data,
+            'meta' => $meta
+        ];
+        $this->response->json($response);
+    }
+
+    protected function getPaginationParams(): array
+    {
+        $page = max(1, (int) ($this->request->query('page') ?? 1));
+        $limit = min(100, max(1, (int) ($this->request->query('limit') ?? 20)));
+        $offset = ($page - 1) * $limit;
+        
+        return compact('page', 'limit', 'offset');
+    }
 }

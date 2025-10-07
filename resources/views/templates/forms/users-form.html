@@ -1,0 +1,152 @@
+<form id="users-form" class="form__users" method="get">
+    <section class="form__row">
+        <fieldset>
+            <legend>Informacion del sistema</legend>        
+                <div class="form__group">
+                    <label for="user_id">Id usuario</label>
+                    <input type="text" id="user_id" name="user_id" class="form-input" placeholder="ID" autocomplete="off" disabled>
+                </div>
+                <div class="form__group">
+                    <label for="code_id">Clave</label>
+                    <input type="password" id="code_id" name="code_id" class="form-input" placeholder="Clave" autocomplete="current-password" required>
+                </div>
+                <div class="form__group">
+                    <label for="fingerprint_id">ID de Huella</label>
+                    <input type="text" id="fingerprint_id" name="fingerprint_id" class="form-input" placeholder="001" autocomplete="off" disabled>
+                </div>
+                <div class="form__group">
+                    <label for="status">Estado</label>
+                    <select id="status" name="status" class="form-input" required>
+                        <option value=true>Activo</option>
+                        <option value=false>Inactivo</option>
+                    </select>
+                </div>
+        </fieldset>
+        <fieldset>
+            <legend>Informacion Personal</legend>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label for="first_name">Nombres</label>
+                        <input type="text" id="first_name" name="first_name" class="form-input" placeholder="Nombres" autocomplete="given-name" required>
+                    </div>
+                    <div class="form__group">
+                        <label for="last_name">Apellido Paterno</label>
+                        <input type="text" id="last_name" name="last_name" class="form-input" placeholder="Solo apellido paterno" autocomplete="off" list="apellidos" required>
+                    </div>
+                </div>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label for="second_last_name">Apellido Materno</label>
+                        <input type="text" id="second_last_name" name="second_last_name" class="form-input" placeholder="Solo apellido materno" autocomplete="off" list="apellidos" required>
+                    </div>
+                    <div class="form__group">
+                        <label for="date_of_birth">Fecha de nacimiento</label>
+                        <input type="date" name="date_of_birth" id="date_of_birth" class="form-input" autocomplete="bday" required>
+                    </div>
+                </div>
+                <div class="form__group">
+                    <label for="age">Edad</label>
+                    <input type="number" name="age" id="age" class="form-input" placeholder="20" autocomplete="off" readonly disabled>
+                </div>
+        </fieldset>
+    </section>    
+    <section class="form__row">
+        <fieldset>
+            <legend>Informacion de pago</legend>
+            <div class="form__group">
+                <label for="salary_hr">Salario por hora</label>
+                <input type="number" name="salary_hr" id="salary_hr" class="form-input" placeholder="$" min="1" autocomplete="off" required>
+            </div>
+            <div class="form__group">
+                <label for="payment_currency">Moneda</label>
+                <select name="payment_currency" id="payment_currency" class="form-input" required>
+                    <option value="0" selected>MXN - Peso Mexicano</option>
+                    <option value="1">USD - Dolar</option>
+                </select>
+            </div>
+            <div class="form__group">
+                <label for="payment_type">Tipo de pago</label>
+                <select name="payment_type" id="payment_type" class="form-input" required>
+                    <option value="0" selected>Mensual</option>
+                    <option value="1">Quincenal</option>
+                    <option value="2">Semanal</option>
+                </select>
+            </div>
+            <div class="form__group">
+                <label for="payment_method">Metodo de pago</label>
+                <select name="payment_method" id="payment_method" class="form-input" required>
+                    <option value="0" selected>Efectivo</option>
+                    <option value="1">Transferencia</option>
+                </select>
+            </div>
+            <div class="form__group">
+                <label for="pay_day">Metodo de pago</label>
+                <select name="pay_day" id="pay_day" class="form-input" required>
+                    <option value="0" selected>Lunes</option>
+                    <option value="1">Martes</option>
+                    <option value="2">Miercoles</option>
+                    <option value="3">Jueves</option>
+                    <option value="4">viernes</option>
+                    <option value="5">Sabado</option>
+                    <option value="6">Domingo</option>                
+                </select>
+            </div>        
+        </fieldset>
+        <fieldset>
+            <legend>Informacion laboral</legend>
+                <div class="form__group">
+                    <label for="position">Puesto</label>
+                    <input type="text" name="position" id="position" class="form-input" placeholder="Chef Cocina" autocomplete="organization-title" required>
+                </div>
+                <div class="form__group">
+                    <label for="restaurant_location">Sucursal</label>
+                    <select name="branch" id="branch" class="form-input" required>
+                        <option value="0" selected>Matriz</option>
+                    </select>
+                </div>
+                <div class="form__group">
+                    <label for="hire_date">Fecha de contratacion</label>
+                    <input type="date" name="hire_date" id="hire_date" class="form-input" autocomplete="off" required>
+                </div>
+                <div class="form__group">
+                    <label for="work_schedule">Horario</label>
+                    <select name="work_schedule" id="work_schedule" class="form-input" required>
+                        <option value="48" selected>Tiempo Completo</option>
+                        <option value="24" selected>Medio Tiempo</option>
+                        <option value="0" selected>Por horas</option>
+                    </select>
+                </div>
+                <div class="form__group">
+                    <label for="hours_per_week">Horas por semana</label>
+                    <input type="number" name="hours_per_week" id="hours_per_week" class="form-input" placeholder="48" autocomplete="off" readonly disabled>
+                </div>
+        </fieldset>
+    </section>    
+    <fieldset>
+        <legend>Informacion de contacto</legend>
+            <div class="form__row">
+                <div class="form__group">
+                    <label for="email">Correo</label>
+                    <input type="email" name="email" id="email" class="form-input" placeholder="user@example.com" autocomplete="email" required>
+                </div>
+                <div class="form__row">
+                    <div class="form__group">
+                        <label for="phone">Telefono</label>
+                        <div class="form__row">
+                            <input type="tel" name="country_code" id="country_code" class="form-input" pattern="[0-9]{2,3}" maxlength="3" placeholder="52" autocomplete="tel-country-code" required>
+                            <input type="tel" name="phone" id="phone" class="form-input" pattern="[0-9]{10}" maxlength="10" placeholder="2602057812" autocomplete="tel-national" required>
+                        </div>
+                    </div>        
+                </div>
+                <div class="form__group">
+                    <label for="address">Direccion</label>
+                    <input name="address" id="address" class="form-input" placeholder="Calle, Ciudad, Estado, Pais" autocomplete="street-address" required>
+                </div>
+            </div>
+    </fieldset>
+    <datalist id="apellidos"></datalist>
+    <div class="form__actions">
+        <button type="reset" class="form__button"  onclick="this.closest('dialog').close()"><span class="material-symbols-outlined">close</span>Cancelar</button>
+        <button type="submit" class="form__button" data-btn-modal><span class="material-symbols-outlined">save</span>Guardar</button>        
+    </div>
+</form>

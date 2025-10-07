@@ -1,0 +1,31 @@
+{
+  "user_id": "BZAPP-00001",
+  "code_id": 1234,
+  "fingerprint_id": 1,
+  "status": true,
+  "last_login": "2025-09-25 03:23:55",
+  
+  "first_name": "José",
+  "last_name": "Serrano",
+  "secondary_last_name": "García",
+  "date_of_birth": "1996-05-15",
+  "age": 28,
+  
+  "email": "jose.serrano@example.com",
+  "country_code": "+52",
+  "area_code": "33",
+  "phone": "600001098",
+  "address": "Calle Falsa 123, Ciudad, Estado, México",
+  
+  "position": "Chef de Cocina",
+  "branch": "Matriz",
+  "hire_date": "2025-03-11",
+  "work_schedule": "Tiempo Completo",
+  "hours_per_week": 40,
+  
+  "salary_hr": 150,
+  "payment_currency": "MXN",
+  "payment_type": "Semanal",
+  "payment_method": "Efectivo",
+  "pay_day": "Miercoles"
+}

@@ -1,29 +1,35 @@
 import { routes } from "./routes.js";
 import { HashRouter } from "./router.js";
-import { ValidateInputs } from "./utils/ValidateInputs.js";
-import { Supplies } from "./pages/Supplies.js";
 
 export const main = {
+    router: null,
+    activeModules: new Set(),
+    
     init() {
-        const router = new HashRouter(routes);
-        /* new ValidateInputs(document); */
-        router.load();
-        this.initPageSpecificModules();
+        this.router = new HashRouter(routes, this.onRouteChange.bind(this));
+        this.router.init();
     },
 
-    initPageSpecificModules() {
-        this.checkAndInitModules();
-        const observer = new MutationObserver(() => {
-            this.checkAndInitModules();
+    onRouteChange(page, pageModule) {
+        this.cleanupInactiveModules();
+        if (pageModule) {
+            this.activeModules.add(pageModule);
+        }
+    },
+
+    cleanupInactiveModules() {
+        this.activeModules.forEach(module => {
+            if (module.cleanup) {
+                module.cleanup();
+            }
         });
-        observer.observe(document.body, { childList: true, subtree: true });
+        this.activeModules.clear();
     },
 
-    checkAndInitModules() {
-        const suppliesContainer = document.querySelector('.supplies__container');
-        if (suppliesContainer && !suppliesContainer.dataset.initialized) {
-            new Supplies();
-            suppliesContainer.dataset.initialized = 'true';
+    async destroy() {
+        this.cleanupInactiveModules();
+        if (this.router) {
+            await this.router.destroy();
         }
     }
 };

@@ -1,0 +1,55 @@
+
+.dialog__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog__header-left {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+}
+
+.dialog__header-right {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+}
+
+.dialog__header button span{
+    border: none;
+    background: none;
+}
+
+.dialog__close{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.dialog__close:hover{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+.dialog__content{
+    padding-top: .25rem;
+}
+
+.form__actions {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .dialog__form-button {
+        display: none;
+    }
+    
+    .form__actions {
+        display: flex;
+    }
+}

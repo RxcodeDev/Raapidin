@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API WhatsApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #25D366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: #25D366;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #128C7E;
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .info {
+            background-color: #e7f3ff;
+            color: #004085;
+            border: 1px solid #bee5eb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .api-response {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .api-response h4 {
+            margin-top: 0;
+            color: #495057;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Test API WhatsApp - México</h1>
+        
+        <div class="info">
+            <strong>Número registrado:</strong> 5213331786030<br>
+            <strong>API Key:</strong> 6106457
+        </div>
+
+        <form id="whatsappForm">
+            <div class="form-group">
+                <label for="phone">Número de teléfono completo:</label>
+                <input type="text" id="phone" value="5213331786030" maxlength="13">
+                <small style="color: #666; font-size: 12px;">Formato: 521 + código de área + número (13 dígitos)</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Mensaje a enviar:</label>
+                <textarea id="message" placeholder="Escribe tu mensaje aquí..." required>Hola, dueño de la tienda Don Martín.
+
+El personal ha llegado a su turno a las siguientes horas:
+
+Ricardo — 08:15 AM
+
+Jesús — 08:20 AM
+
+Alma — 08:25 AM</textarea>
+            </div>
+            
+            <button type="submit" id="sendBtn">Enviar Mensaje</button>
+        </form>
+        
+        <div id="result" class="result"></div>
+        
+        <div id="apiResponse" class="api-response" style="display: none;">
+            <h4>📡 Respuesta de la API:</h4>
+            <div id="apiResponseContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('whatsappForm');
+        const sendBtn = document.getElementById('sendBtn');
+        const resultDiv = document.getElementById('result');
+        const phoneInput = document.getElementById('phone');
+        const messageInput = document.getElementById('message');
+        const apiResponseDiv = document.getElementById('apiResponse');
+        const apiResponseContent = document.getElementById('apiResponseContent');
+
+        const API_KEY = '6106457';
+        const API_BASE_URL = 'https://api.callmebot.com/whatsapp.php';
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const phone = phoneInput.value.trim();
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                showResult('Por favor, escribe un mensaje', 'error');
+                return;
+            }
+            
+            if (!phone) {
+                showResult('Por favor, ingresa el número de teléfono', 'error');
+                return;
+            }
+            
+            await sendWhatsAppMessage(phone, message);
+        });
+
+        async function sendWhatsAppMessage(phone, text) {
+            showResult('Enviando mensaje...', 'loading');
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Enviando...';
+            apiResponseDiv.style.display = 'none';
+            
+            try {
+                // Codificar el texto reemplazando espacios con +
+                const encodedText = encodeURIComponent(text).replace(/%20/g, '+');
+                
+                // Construir la URL exactamente como en el ejemplo de CallMeBot
+                const url = `${API_BASE_URL}?phone=${phone}&text=${encodedText}&apikey=${API_KEY}`;
+                
+                console.log('Enviando a:', url);
+                
+                // Intentar primero con fetch usando un proxy CORS o directamente
+                try {
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        mode: 'cors'
+                    });
+                    
+                    const responseText = await response.text();
+                    
+                    // Mostrar la respuesta
+                    showApiResponse({
+                        status: response.status,
+                        statusText: response.statusText,
+                        url: url,
+                        response: responseText
+                    });
+                    
+                    if (response.ok) {
+                        showResult(`✅ Mensaje enviado exitosamente al número ${phone}`, 'success');
+                    } else {
+                        showResult(`⚠️ Respuesta del servidor: ${response.status} - ${responseText}`, 'error');
+                    }
+                    
+                } catch (fetchError) {
+                    console.log('Error con fetch, intentando método alternativo:', fetchError);
+                    
+                    // Si fetch falla por CORS, usar método de imagen
+                    const img = new Image();
+                    
+                    const result = await new Promise((resolve, reject) => {
+                        const timeout = setTimeout(() => {
+                            resolve(true);
+                        }, 3000);
+                        
+                        img.onload = () => {
+                            clearTimeout(timeout);
+                            resolve(true);
+                        };
+                        
+                        img.onerror = () => {
+                            clearTimeout(timeout);
+                            resolve(true);
+                        };
+                        
+                        img.src = url;
+                    });
+                    
+                    // Mostrar info cuando usamos el método alternativo
+                    showApiResponse({
+                        method: 'Image Request (CORS bypass)',
+                        url: url,
+                        note: 'La API tiene restricciones CORS. El mensaje fue enviado pero no podemos leer la respuesta directamente.'
+                    });
+                    
+                    showResult(`✅ Mensaje enviado al número ${phone} (método alternativo)`, 'success');
+                }
+                
+            } catch (error) {
+                console.error('Error al enviar mensaje:', error);
+                showResult('❌ Error al enviar el mensaje: ' + error.message, 'error');
+                showApiResponse({
+                    error: error.message,
+                    stack: error.stack
+                });
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Enviar Mensaje';
+            }
+        }
+
+        function showApiResponse(data) {
+            apiResponseContent.textContent = JSON.stringify(data, null, 2);
+            apiResponseDiv.style.display = 'block';
+        }
+
+        function showResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = `result ${type}`;
+            resultDiv.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    resultDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>

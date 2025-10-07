@@ -145,6 +145,13 @@ input[type="checkbox"]:checked::before {
     height: 100%;
 }
 
+input:disabled,select:disabled,button:disabled{
+    background-color: var(--form-element-disabled-back);
+    color: var(--form-element-disabled-text);
+    border-color: var(--form-element-disabled-border);
+    cursor: not-allowed;
+}
+
 /* Solo en modales no se puede aplicar */
 dialog select {
     appearance: auto;

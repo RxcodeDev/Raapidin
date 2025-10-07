@@ -74,8 +74,42 @@ class TenantController extends BaseController
     public function index(Request $request, Response $response): void
     {
         try {
-            $tenants = $this->tenantModel->getAll();
-            $this->successResponse($tenants, 'Tenants obtenidos exitosamente');
+            $pagination = $this->getPaginationParams();
+            $filters = [
+                'search' => $request->query('search'),
+                'status' => $request->query('status')
+            ];
+            
+            $filters = array_filter($filters);
+            
+            if (empty($pagination['page']) && empty($pagination['limit'])) {
+                $tenants = $this->tenantModel->getAll();
+                $this->successResponse($tenants, 'Tenants obtenidos exitosamente');
+                return;
+            }
+            
+            $tenants = $this->tenantModel->getPaginated(
+                $pagination['limit'], 
+                $pagination['offset'], 
+                $filters
+            );
+            
+            $total = $this->tenantModel->getTotal($filters);
+            $totalPages = ceil($total / $pagination['limit']);
+            
+            $meta = [
+                'currentPage' => $pagination['page'],
+                'pageSize' => $pagination['limit'],
+                'totalItems' => $total,
+                'totalPages' => $totalPages,
+                'hasNext' => $pagination['page'] < $totalPages,
+                'hasPrev' => $pagination['page'] > 1,
+                'from' => $pagination['offset'] + 1,
+                'to' => min($pagination['offset'] + $pagination['limit'], $total)
+            ];
+            
+            $this->paginatedResponse($tenants, $meta, 'Tenants obtenidos exitosamente');
+            
         } catch (DatabaseException $e) {
             $this->errorResponse($e->getMessage(), 500);
         }

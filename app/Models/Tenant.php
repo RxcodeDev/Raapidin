@@ -217,6 +217,94 @@ class Tenant
     }
 
     /**
+     * Obtener tenants con paginación
+     */
+    public function getPaginated(int $limit = 20, int $offset = 0, array $filters = []): array
+    {
+        try {
+            $whereClause = "WHERE 1=1";
+            $params = [];
+            
+            if (!empty($filters['search'])) {
+                $whereClause .= " AND (business_name ILIKE :search OR owner_email ILIKE :search OR display_slug ILIKE :search)";
+                $params[':search'] = '%' . $filters['search'] . '%';
+            }
+            
+            if (!empty($filters['status'])) {
+                $whereClause .= " AND status = :status";
+                $params[':status'] = $filters['status'];
+            }
+            
+            $sql = "SELECT 
+                        id, 
+                        business_name, 
+                        schema_name, 
+                        display_slug, 
+                        owner_email, 
+                        subscription_plan, 
+                        status, 
+                        created_at, 
+                        trial_ends_at, 
+                        business_type, 
+                        timezone, 
+                        currency, 
+                        settings
+                    FROM core.tenants
+                    {$whereClause}
+                    ORDER BY created_at DESC
+                    LIMIT :limit OFFSET :offset";
+            
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+            
+            $stmt->execute();
+            return $stmt->fetchAll();
+            
+        } catch (PDOException $e) {
+            throw new DatabaseException("Error al obtener tenants paginados: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Contar total de tenants
+     */
+    public function getTotal(array $filters = []): int
+    {
+        try {
+            $whereClause = "WHERE 1=1";
+            $params = [];
+            
+            if (!empty($filters['search'])) {
+                $whereClause .= " AND (business_name ILIKE :search OR owner_email ILIKE :search OR display_slug ILIKE :search)";
+                $params[':search'] = '%' . $filters['search'] . '%';
+            }
+            
+            if (!empty($filters['status'])) {
+                $whereClause .= " AND status = :status";
+                $params[':status'] = $filters['status'];
+            }
+            
+            $sql = "SELECT COUNT(*) FROM core.tenants {$whereClause}";
+            
+            $stmt = $this->db->prepare($sql);
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+            
+            $stmt->execute();
+            return (int) $stmt->fetchColumn();
+            
+        } catch (PDOException $e) {
+            throw new DatabaseException("Error al contar tenants: " . $e->getMessage());
+        }
+    }
+
+    /**
      * Actualizar estado del tenant
      */
     public function updateStatus(string $id, string $status): bool
