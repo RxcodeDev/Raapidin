@@ -44,6 +44,11 @@ final class Router implements RouterInterface
         $this->addRoute('DELETE', $path, $handler);
     }
 
+    public function patch(string $path, array $handler): void
+    {
+        $this->addRoute('PATCH', $path, $handler);
+    }
+
     public function middleware(MiddlewareInterface $middleware): self
     {
         $this->middleware[] = $middleware;
@@ -83,11 +88,29 @@ final class Router implements RouterInterface
         return rtrim($uri, '/') ?: '/';
     }
 
+    private function setCorsHeaders(): void
+    {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+        header('Access-Control-Max-Age: 86400');
+    }
+
     public function dispatch(): void
     {
         try {
+            // Configurar headers CORS
+            $this->setCorsHeaders();
+            
             $uri = $this->normalizeUri($this->request->getUri());
             $method = $this->request->getMethod();
+            
+            // Manejar preflight OPTIONS request ANTES de buscar rutas
+            if ($method === 'OPTIONS') {
+                http_response_code(200);
+                exit();
+            }
+            
             $routeKey = "$method $uri";
 
             if (isset($this->routes[$routeKey])) {
@@ -155,6 +178,9 @@ final class Router implements RouterInterface
         if (!method_exists($controller, $methodName)) {
             throw new ConfigurationException("Method not found: $controllerClass::$methodName");
         }
+        
+        // Asegurar que los headers CORS estén presentes en la respuesta
+        $this->setCorsHeaders();
         
         $controller->$methodName($this->request, $this->response);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\TenantController;
+use App\Controllers\UserController;
 
 return [
     // Rutas para Tenants
@@ -11,5 +12,9 @@ return [
     'POST /api/tenants' => [TenantController::class, 'store'],
     'PUT /api/tenants/{id}' => [TenantController::class, 'update'],
     'PATCH /api/tenants/{id}/status' => [TenantController::class, 'updateStatus'],
+
+    // Rutas para users
+    'GET /api/users' => [UserController::class, 'index'],
+    'POST /api/users' => [UserController::class, 'store'],
 ];
 ?>

@@ -1,4 +1,4 @@
-import { UserService } from "../services/UserService";
+import { UserService } from "../services/UserService.js";
 import { RequestHandler } from '../services/RequestHandler.js';
 import { cache } from '../utils/CacheManager.js';
 import { PaginationManager } from '../utils/PaginationManager.js';
@@ -12,6 +12,7 @@ export class UserController {
         this.filters = {};
         this.isLoading = false;
     }
+    
     async loadUsers(useCache = true) {
         const cacheKey = 'users_all';
         if (useCache && cache.has(cacheKey)) {
@@ -26,6 +27,19 @@ export class UserController {
             this.users = result.data.data || result.data;
             cache.set(cacheKey, this.users);
         }
+        return result;
+    }
+
+    async createUser(data) {
+        const result = await RequestHandler.execute(
+            () => UserService.create(data)
+        );
+
+        if (result.success) {
+            cache.invalidatePattern('users_');
+            await this.loadUsers(false);
+        }
+
         return result;
     }
 }

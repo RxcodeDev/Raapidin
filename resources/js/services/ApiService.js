@@ -34,8 +34,12 @@ export class ApiService {
     }
 
     get(endpoint, params = {}) {
-        const url = new URL(endpoint, this.baseURL);
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+        const url = new URL(endpoint, this.baseURL || window.location.origin);
+        Object.keys(params).forEach(key => {
+            if (params[key] !== null && params[key] !== undefined) {
+                url.searchParams.append(key, params[key]);
+            }
+        });
         return this.request(url.pathname + url.search);
     }
 
@@ -76,4 +80,4 @@ export class ApiError extends Error {
     }
 }
 
-export const api = new ApiService();
+export const api = new ApiService('http://localhost:8000');

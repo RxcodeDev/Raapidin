@@ -12,4 +12,8 @@ export class UserService {
             ...filters
         });
     }
+
+    static async create(data) {
+        return api.post('/api/users', data);
+    }
 }
